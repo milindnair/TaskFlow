@@ -38,14 +38,13 @@ const Board = () => {
         const startColIndex = columns[Number(source.droppableId)];
         const finishColIndex = columns[Number(destination.droppableId)];
 
-        const startCol:Column = {
-          id: startColIndex[0],
-          todos: startColIndex[1].todos
+        const startCol: Column = {
+          id: startColIndex[1].id,
+          todos: startColIndex[1].todos,
         };
-
-        const finishCol:Column = {
-          id: finishColIndex[0],
-          todos: finishColIndex[1].todos
+        const finishCol: Column = {
+          id: finishColIndex[1].id,
+          todos: finishColIndex[1].todos,
         };
 
         if(!startCol || !finishCol) return; 
