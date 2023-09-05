@@ -7,7 +7,7 @@ export const getTodosGroupedByColumn = async () => {
   );
   console.log(data);
   const todos = data.documents;
-  console.log(todos);
+  console.log("Todos",todos);
   const columns = todos.reduce((acc, todo) => {
     if (!acc.get(todo.status)) {
       acc.set(todo.status, {
@@ -19,14 +19,16 @@ export const getTodosGroupedByColumn = async () => {
     acc.get(todo.status)!.todos.push({
       $id: todo.$id,
       $createdAt: todo.$createdAt,
-      title: todo.$title,
-      status: todo.$status,
+      title: todo.title,
+      status: todo.status,
       ...[todo.image && { image: JSON.parse(todo.image) }],
     });
     return acc;
   }, new Map<TypedColumn, Column>());
 
-  const columnTypes: TypedColumn[] = ["todo", "in-progress", "done"];
+
+
+  const columnTypes: TypedColumn[] = ["todo", "inprogress", "done"];
   for (const columnType of columnTypes) {
     if (!columns.get(columnType)) {
       columns.set(columnType, {
