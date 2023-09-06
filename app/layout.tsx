@@ -16,12 +16,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body >
+    <html lang="en" className="relative ">
+      <body style={{
+                  background: 'rgb(33,33,33)',
+                  backgroundColor: 'linear-gradient(180deg, rgba(33,33,33,1) 0%, rgba(250,255,250,1) 100%)'
+      }} >
         {children}
         <Modal />
         <EditModal />
+        <footer className="py-4 text-center text-[1.5rem] text-slate-200 ">
+  <p>
+    Made with <span className="text-red-500">&hearts;</span> by{" "}
+    <a
+      href="https://github.com/milindnair"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-slate-200 hover:text-red-500"
+    >
+      Milind Nair
+    </a>
+  </p>
+</footer>
+
       </body>
     </html>
   )
 }
+
