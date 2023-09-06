@@ -14,10 +14,13 @@ interface BoardState {
   setSearchString: (searchString: string) => void;
   newTaskInput: string;
   setNewTaskInput: (newTaskInput: string) => void;
+  editTaskInput: string;
+    setEditTaskInput: (editTaskInput: string) => void;
   image: File | null;
   setImage: (image: File | null) => void;
   addTask: (todo: string, columnId: TypedColumn, image?: File | null) => void;
   deleteTask: (taskIndex: number, todoId: Todo, id: TypedColumn) => void;
+  editTodo: (todo: Todo, newTitle: string, newImage?: File | null) => void;
 }
 
 export const useBoardStore = create<BoardState>((set) => ({
@@ -28,6 +31,8 @@ export const useBoardStore = create<BoardState>((set) => ({
   setSearchString: (searchString) => set({ searchString }),
   newTaskInput: "",
   setNewTaskInput: (newTaskInput) => set({ newTaskInput }),
+    editTaskInput: "",
+    setEditTaskInput: (editTaskInput) => set({ editTaskInput }),
   newTaskType: "todo",
   setNewTaskType: (newTaskType) => set({ newTaskType }),
   image: null,
@@ -110,5 +115,77 @@ export const useBoardStore = create<BoardState>((set) => ({
         },
       };
     });
+  },
+  editTodo: async (todo, newTitle, newImage = null) => {
+    try {
+      // Fetch the existing todo item from the database.
+      const existingTodo = await database.getDocument(
+        process.env.NEXT_PUBLIC_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_TODOS_COLLECTION_ID!,
+        todo.$id
+      );
+
+      if (existingTodo) {
+        // Update the todo item with the new title.
+        existingTodo.title = newTitle;
+        
+
+        // If newImage is provided, update the image.
+        // if (newImage) {
+        //   const fileUploaded = await uploadImage(newImage);
+        //   console.log(fileUploaded);
+        //   if (fileUploaded) {
+        //     const file = {
+        //       bucketId: fileUploaded.bucketId!,
+        //       fileId: fileUploaded.$id!,
+        //     };
+        //     existingTodo.image = JSON.stringify(file);
+        //   }
+        // }
+
+        // Exclude the $collectionId attribute.
+        const { $collectionId, $databaseId,documentId, ...updatedTodo } = existingTodo;
+
+        console.log(existingTodo);
+
+        // Update the todo item document in the database.
+        const res = await database.updateDocument(
+          process.env.NEXT_PUBLIC_DATABASE_ID!,
+          process.env.NEXT_PUBLIC_TODOS_COLLECTION_ID!,
+          todo.$id,
+          updatedTodo
+        );
+
+        console.log("Updated todo item:", res);
+
+        // Update the local state if necessary.
+        set((prevState) => {
+            // Clone the previous state and update the specific todo item.
+            const updatedBoard = {
+              ...prevState.board,
+              columns: new Map(prevState.board.columns),
+            };
+            const columnId = updatedTodo.status;
+            const updatedColumn:any = {
+              ...updatedBoard.columns.get(columnId),
+              todos: updatedBoard.columns
+                .get(columnId)
+                ?.todos.map((item) =>
+                  item.$id === todo.$id ? updatedTodo : item
+                ),
+            };
+            updatedBoard.columns.set(columnId, updatedColumn);
+    
+            // Return the updated state.
+            return {
+              ...prevState,
+              board: updatedBoard,
+            };
+          });
+        }
+    } catch (error) {
+      console.error("Error editing todo item:", error);
+      // Handle errors here if needed.
+    }
   },
 }));
