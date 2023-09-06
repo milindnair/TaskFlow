@@ -1,4 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TaskFlow - A Next.js Todo App (Trello-Clone)
+
+![TaskFlow Preview](./public/home.png)
+![drag and drop](./public/drag.png)
+
+TaskFlow is a feature-rich, responsive Todo web application built using Next.js, Headless UI, TypeScript, Appwrite, and React Beautiful DnD. It offers a user-friendly interface with functionalities like search, delete, add, drag-and-drop, and edit tasks. TaskFlow makes managing your tasks a breeze!
+
+## Features
+
+- **Todo Management**: Create, organize, and manage your tasks effortlessly.
+- **Search Functionality**: Quickly find specific tasks using the search bar.
+- **Delete Tasks**: Remove completed or unnecessary tasks with ease.
+- **Add New Tasks**: Easily add new tasks to your list.
+- **Drag-and-Drop**: Reorder tasks by simply dragging and dropping them.
+- **Edit Tasks**: Edit
+
+## Technologies Used
+
+- Next.js
+- Appwrite Cloud database
+- Headless UI
+- TailwindCss
 
 ## Getting Started
 
