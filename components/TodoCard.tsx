@@ -63,40 +63,39 @@ const TodoCard = ({
 
   return (
     <div
-      className="bg-white rounded-md space-y-2 drop-shadow-md"
-      {...draggableProps}
-      {...dragHandleProps}
-      ref={innerRef}
-    >
-      <div className="flex justify-between items-center p-5">
-        <p>{todo.title}</p>
+    className="bg-white rounded-md space-y-2 drop-shadow-md"
+    {...draggableProps}
+    {...dragHandleProps}
+    ref={innerRef}
+  >
+    <div className="p-5 flex items-center justify-between">
+      <p className="flex-grow">{todo.title}</p>
+      <div className="flex space-x-2">
+        <button className="text-red-500 hover:text-red-600">
+          <PencilIcon className="h-8 w-8" onClick={handleOpenModal} />
+        </button>
         <button className="text-red-500 hover:text-red-600">
           <XCircleIcon
-            className="ml-5 h-8 w-8"
+            className="h-8 w-8"
             onClick={() => deleteTask(index, todo, id)}
           />
         </button>
-        <button className="text-red-500 hover:text-red-600">
-          <PencilIcon
-            className="ml-5 h-8 w-8"
-            onClick={handleOpenModal}
-          />
-        </button>
       </div>
-      {imageUrl && (
-        <div className="relative h-full w-full rounded-b-md">
-          <Image
-            src={imageUrl}
-            alt="Uploaded Image"
-            width={400}
-            height={200}
-            className="rounded-b-md w-full object-contain"
-          />
-        </div>
-      )}
-      {/* <EditModal todo={todo} index={index} id={id} /> */}
     </div>
-  );
+    {imageUrl && (
+      <div className="relative h-full w-full rounded-b-md">
+        <Image
+          src={imageUrl}
+          alt="Uploaded Image"
+          width={400}
+          height={200}
+          className="rounded-b-md w-full object-contain"
+        />
+      </div>
+    )}
+    {/* <EditModal todo={todo} index={index} id={id} /> */}
+  </div>
+);
 };
 
 export default TodoCard;
