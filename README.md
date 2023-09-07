@@ -3,8 +3,9 @@
 ![TaskFlow Preview](./public/home.png)
 ![drag and drop](./public/drag.png)
 
-TaskFlow is a feature-rich, responsive Todo web application built using Next.js, Headless UI, TypeScript, Appwrite, and React Beautiful DnD. It offers a user-friendly interface with functionalities like search, delete, add, drag-and-drop, and edit tasks. TaskFlow makes managing your tasks a breeze!
 
+TaskFlow is a feature-rich, responsive Todo web application built using Next.js, Headless UI, TypeScript, Appwrite, and React Beautiful DnD. It offers a user-friendly interface with functionalities like search, delete, add, drag-and-drop, and edit tasks. TaskFlow makes managing your tasks a breeze!<br>
+View the live Website here https://taskflow-appwrite.netlify.app/
 ## Features
 
 - **Todo Management**: Create, organize, and manage your tasks effortlessly.
